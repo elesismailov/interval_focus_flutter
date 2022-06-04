@@ -25,10 +25,17 @@ class _TimerHomePage extends State<TimerHomePage> {
 			backgroundColor: Colors.black,
 			body: Center(
 				child: Column(
+					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-						Text('Focus', style: stl),
-
-					],
+					Text('Focus', style: stl),
+					Text('00:00', style: stl),
+					Text('Session Number: ', style: stl),
+					Row(
+						mainAxisAlignment: MainAxisAlignment.center,
+						children: [
+						ElevatedButton(onPressed: () {}, child: Text('Start')),
+						ElevatedButton(onPressed: () {}, child: Text('Pause')),]
+					),],
 				),
 			),
 		);
