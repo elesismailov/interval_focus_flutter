@@ -83,20 +83,22 @@ class _TimerHomePage extends State<TimerHomePage> {
 
 	@override
 	Widget build(BuildContext context) {
+		String _min = ('0' + ((_timer.userTime+300)/1000/60).round().toString());
+		String _sec = ('0' + ((_timer.userTime+300)/1000%60).round().toString());
 		return Scaffold(
 			backgroundColor: Colors.black,
 			body: Center(
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-					Text('Focus', style: stl),
-					Text('00:00', style: stl),
-					Text('Session Number: ', style: stl),
+					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: stl),
+					Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: stl),
+					Text('Session Number: ' + _timer.sessionNumber.toString(), style: stl),
 					Row(
 						mainAxisAlignment: MainAxisAlignment.center,
 						children: [
-						ElevatedButton(onPressed: () {}, child: Text('Start')),
-						ElevatedButton(onPressed: () {}, child: Text('Pause')),]
+						ElevatedButton(onPressed: start, child: Text('Start')),
+						ElevatedButton(onPressed: pause, child: Text('Pause')),]
 					),],
 				),
 			),
