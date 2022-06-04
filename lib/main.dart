@@ -9,7 +9,7 @@ void main() {
 }
 
 class TimerHomePage extends StatefulWidget {
-	
+
 	@override
 	State<StatefulWidget> createState() {
 		return _TimerHomePage();
@@ -19,7 +19,7 @@ class TimerHomePage extends StatefulWidget {
 
 class _TimerHomePage extends State<TimerHomePage> {
 
-	InitialTimerState _timer = new InitialTimerState();
+	final InitialTimerState _timer = InitialTimerState();
   void start() {
 
     if ( !_timer.isOn ) {
@@ -91,15 +91,20 @@ class _TimerHomePage extends State<TimerHomePage> {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: stl),
-					Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: stl),
-					Text('Session Number: ' + _timer.sessionNumber.toString(), style: stl),
-					Row(
-						mainAxisAlignment: MainAxisAlignment.center,
-						children: [
-						ElevatedButton(onPressed: start, child: Text('Start')),
-						ElevatedButton(onPressed: pause, child: Text('Pause')),]
-					),],
+					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+					Container(
+						margin: const EdgeInsets.symmetric(vertical: 10.0),
+						child: Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: const TextStyle(color: Colors.white, fontSize: 26.0))),
+					Text('Session Number: ' + _timer.sessionNumber.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+					Container(
+						margin: const EdgeInsets.symmetric(vertical: 10),
+						child: Wrap(
+							spacing: 20,
+							children: [
+							ElevatedButton(onPressed: start, child: Text('Start')),
+							ElevatedButton(onPressed: pause, child: Text('Pause')),]
+						),)
+					],
 				),
 			),
 		);
