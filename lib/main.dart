@@ -19,6 +19,23 @@ class TimerHomePage extends StatefulWidget {
 
 class _TimerHomePage extends State<TimerHomePage> {
 
+	InitialTimerState _timer = new InitialTimerState();
+  void start() {
+
+    if ( !_timer.isOn ) {
+      int startTime = DateTime.now().millisecondsSinceEpoch;
+      int sessionLength = _timer.interval[_timer.sessionNumber];
+      int endTime = startTime + ((_timer.leftTimeWhenPaused != 0) ? _timer.leftTimeWhenPaused : sessionLength);
+
+      _timer.startTime = startTime;
+      _timer.sessionLength = sessionLength;
+      _timer.endTime = endTime;
+      _timer.isOn = true;
+
+      mainTimer();
+    };
+  }
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
