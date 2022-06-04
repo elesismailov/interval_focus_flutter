@@ -101,8 +101,8 @@ class _TimerHomePage extends State<TimerHomePage> {
 						child: Wrap(
 							spacing: 20,
 							children: [
-							ElevatedButton(onPressed: start, child: Text('Start')),
-							ElevatedButton(onPressed: pause, child: Text('Pause')),]
+							IconButton(onPressed: start, iconSize: 50, icon: Icon(Icons.play_circle_rounded, color: Colors.blue)),
+							IconButton(onPressed: pause, iconSize: 50, icon: Icon(Icons.pause_circle_rounded, color: Colors.blue)),]
 						),)
 					],
 				),
