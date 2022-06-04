@@ -44,4 +44,34 @@ class _TimerHomePage extends State<TimerHomePage> {
 }
 
 
+class InitialTimerState {
+  int mode = 0; // 0 - focus, 1 - break
+  int sessionLength = 0;
+  int userTime = 0;
+  bool isOn = false;
+  int startTime = 0;
+  int endTime = 0;
+  int leftTimeWhenPaused = 0;
+  int sessionNumber = 0;
+  List<int> interval = [9000, 5000, 9000, 5000];
+  // List<int> interval = [];
+
+  void nextSession() { 
+    if ( interval.length-1 == sessionNumber ) {
+      sessionNumber = 0;
+    } else {
+      sessionNumber++;
+    }
+    switchMode();
+  }
+
+  void switchMode() {
+    if ( sessionNumber%2 == 0 ) {
+      mode = 0;
+    } else {
+      mode = 1;
+    }
+  }
+}
+
 TextStyle stl = const TextStyle(color: Colors.white);
