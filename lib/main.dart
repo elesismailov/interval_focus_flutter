@@ -33,7 +33,7 @@ class _TimerHomePage extends State<TimerHomePage> {
       _timer.isOn = true;
 
       mainTimer();
-    };
+    }
   }
 
   void pause() {
@@ -59,7 +59,7 @@ class _TimerHomePage extends State<TimerHomePage> {
           _timer.userTime = leftTime;
           });
 
-        Timer(Duration(milliseconds: 500), mainTimer);
+        Timer(const Duration(milliseconds: 500), mainTimer);
       } else {
 
         resetTimer();
@@ -70,6 +70,14 @@ class _TimerHomePage extends State<TimerHomePage> {
 
       }
     }
+
+  }
+
+  void resetTimer() {
+      _timer.isOn = false;
+      _timer.leftTimeWhenPaused = 0;
+      _timer.startTime = 0;
+      _timer.endTime = 0; 
 
   }
 
