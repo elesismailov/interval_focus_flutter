@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,30 +8,33 @@ void main() {
     ));
 }
 
-class TimerHomePage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-	String _aString = 'hello h string';
-
-    return Scaffold(
-		backgroundColor: Colors.grey,
-        body: Center(
-            child: Column(
-			mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					Text('Focus'),
-					Text('00:00'),
-					Text('Session Number'),
-					Row(
-						mainAxisAlignment: MainAxisAlignment.center,
-						children: [
-							ElevatedButton( onPressed: () {}, child: Text('Start')),
-							ElevatedButton( onPressed: () {}, child: Text('Pause')),
-					]),
-			],),
-          ),
-      );
-  }
+class TimerHomePage extends StatefulWidget {
+	
+	@override
+	State<StatefulWidget> createState() {
+		return _TimerHomePage();
+	}
 
 }
+
+class _TimerHomePage extends State<TimerHomePage> {
+
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			backgroundColor: Colors.black,
+			body: Center(
+				child: Column(
+					children: [
+						Text('Focus', style: stl),
+
+					],
+				),
+			),
+		);
+	}
+
+}
+
+
+TextStyle stl = const TextStyle(color: Colors.white);
