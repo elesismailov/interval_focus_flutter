@@ -47,6 +47,32 @@ class _TimerHomePage extends State<TimerHomePage> {
     }
   }
 
+  void mainTimer() {
+
+    if ( _timer.isOn ) {
+      int now = DateTime.now().millisecondsSinceEpoch;
+
+      if ( now - 500 <= _timer.endTime ) {
+        int leftTime = _timer.endTime - now;
+
+        setState(() {
+          _timer.userTime = leftTime;
+          });
+
+        Timer(Duration(milliseconds: 500), mainTimer);
+      } else {
+
+        resetTimer();
+
+        _timer.nextSession();
+
+        start();
+
+      }
+    }
+
+  }
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
