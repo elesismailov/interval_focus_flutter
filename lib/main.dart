@@ -36,6 +36,17 @@ class _TimerHomePage extends State<TimerHomePage> {
     };
   }
 
+  void pause() {
+    if ( _timer.isOn ) {
+      int now = DateTime.now().millisecondsSinceEpoch;
+      int leftTimeWhenPaused = _timer.endTime - now;
+      setState(() {
+          _timer.leftTimeWhenPaused = leftTimeWhenPaused;
+          _timer.isOn = false;
+        });
+    }
+  }
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
