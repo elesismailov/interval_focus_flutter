@@ -62,6 +62,12 @@ class _TimerWidgetState extends State<TimerWidget> {
 
         resetTimer();
 
+        notificationsApi.showNotification(
+          'Interval Focus',
+          (_timer.mode == 0) ? 'It is time to take a break!' : 'Time to get to work!',
+          null,
+          );
+
         _timer.nextSession();
 
         start();
@@ -81,18 +87,16 @@ class _TimerWidgetState extends State<TimerWidget> {
 
 	@override
 	Widget build(BuildContext context) {
-		String _min = ('0' + ((_timer.userTime+300)/1000/60).round().toString());
-		String _sec = ('0' + ((_timer.userTime+300)/1000%60).round().toString());
+    print(_timer.userTime/1000%60);
+		String _min = ('0' + ((_timer.userTime)/1000~/60).round().toString());
+		String _sec = ('0' + ((_timer.userTime)~/1000%60).round().toString());
 		return Scaffold(
 			backgroundColor: Colors.black,
 			body: Center(
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-					ElevatedButton(onPressed: () {
-            notificationsApi.showNotification('This the title', 'And the body', 'l;kdasjlfks;l');
-            // notificationsApi.showNotification();
-            }, child: Text('Notify')),
+            // Text('${_timer.userTime}', style: TextStyle(color: Colors.white,)),
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -124,7 +128,7 @@ class InitialTimerState {
   int endTime = 0;
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
-  List<int> interval = [9000, 5000, 9000, 5000];
+  List<int> interval = [2400000, 600000, 2400000, 600000];
   // List<int> interval = [];
 
   void nextSession() { 

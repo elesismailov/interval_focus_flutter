@@ -39,6 +39,8 @@ String? selectedNotificationPayload;
 
 class Notifications {
 
+	int _lastNotificationId = 0;
+
 	Future<void> init() async {
 	  final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
 	          Platform.isLinux
@@ -93,13 +95,13 @@ class Notifications {
 	    linux: initializationSettingsLinux,
 	  );
 	  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-	      onSelectNotification: (String? payload) async {
-	    if (payload != null) {
-	      debugPrint('notification payload: $payload');
-	    }
-	    selectedNotificationPayload = payload;
-	    selectNotificationSubject.add(payload);
-	  });
+      onSelectNotification: (String? payload) async {
+		    if (payload != null) {
+		      debugPrint('notification payload: $payload');
+		    }
+		    selectedNotificationPayload = payload;
+		    selectNotificationSubject.add(payload);
+		  });
 	}
 
 	Future<void> showNotification(String? title, String? body, payload) async {
@@ -112,18 +114,13 @@ class Notifications {
 	const NotificationDetails platformChannelSpecifics =
 	    NotificationDetails(android: androidPlatformChannelSpecifics);
 	await flutterLocalNotificationsPlugin.show(
-	    0,
+	    _lastNotificationId++,
 	    title,
 	    body,
 	    platformChannelSpecifics,
 	    payload: payload,
 	    );
 	}
-
-	void hello() {
-		print('hello');
-	}
-
 }
 
 Notifications notificationsApi = Notifications();
