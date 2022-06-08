@@ -87,9 +87,16 @@ class _TimerWidgetState extends State<TimerWidget> {
 
 	@override
 	Widget build(BuildContext context) {
-    print(_timer.userTime/1000%60);
-		String _min = ('0' + ((_timer.userTime)/1000~/60).round().toString());
-		String _sec = ('0' + ((_timer.userTime)~/1000%60).round().toString());
+		String _min = ('0' + ((
+      (_timer.userTime == 0) 
+        ? _timer.interval[_timer.sessionNumber] 
+        : _timer.userTime
+      )/1000~/60).toString());
+		String _sec = ('0' + ((
+      (_timer.userTime == 0) 
+        ? _timer.interval[_timer.sessionNumber] 
+        : _timer.userTime
+      )~/1000%60).toString());
 		return Scaffold(
 			backgroundColor: Colors.black,
 			body: Center(
@@ -129,6 +136,7 @@ class InitialTimerState {
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
   List<int> interval = [2400000, 600000, 2400000, 600000];
+  // List<int> interval = [9000, 6000, 9000, 6000];
   // List<int> interval = [];
 
   void nextSession() { 
