@@ -113,7 +113,7 @@ class Notifications {
 	        ticker: 'ticker');
 	const NotificationDetails platformChannelSpecifics =
 	    NotificationDetails(android: androidPlatformChannelSpecifics);
-	await flutterLocalNotificationsPlugin.show(
+	flutterLocalNotificationsPlugin.show(
 	    _lastNotificationId++,
 	    title,
 	    body,

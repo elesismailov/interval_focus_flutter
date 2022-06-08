@@ -17,6 +17,7 @@ class TimerWidget extends StatefulWidget {
 class _TimerWidgetState extends State<TimerWidget> {
 
 	final InitialTimerState _timer = InitialTimerState();
+  bool _isFirstLoad = true;
 
   void start() {
 
@@ -29,6 +30,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       _timer.sessionLength = sessionLength;
       _timer.endTime = endTime;
       _timer.isOn = true;
+      _isFirstLoad = false;
 
       mainTimer();
     }
@@ -57,7 +59,7 @@ class _TimerWidgetState extends State<TimerWidget> {
           _timer.userTime = leftTime;
           });
 
-        Timer(const Duration(milliseconds: 500), mainTimer);
+        Timer(const Duration(milliseconds: 200), mainTimer);
       } else {
 
         resetTimer();
@@ -77,11 +79,13 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 
   void stop() {
+    // TODO confirmation dialogue
     if ( !_timer.isOn ) {
       resetTimer();
       setState(() {
         _timer.sessionNumber = 0;
         _timer.userTime = 0;
+        _isFirstLoad = true;
         });
     }
   }
@@ -95,6 +99,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
 	@override
 	Widget build(BuildContext context) {
+    // TODO extract userTime to _getTextTime()
 		String _min = ('0' + ((
       (_timer.userTime == 0) 
         ? _timer.interval[_timer.sessionNumber] 
@@ -111,7 +116,6 @@ class _TimerWidgetState extends State<TimerWidget> {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-            // Text('${_timer.userTime}', style: TextStyle(color: Colors.white,)),
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -121,17 +125,26 @@ class _TimerWidgetState extends State<TimerWidget> {
   						margin: const EdgeInsets.symmetric(vertical: 0),
   						child: Wrap(
   							spacing: 0,
-  							children: [
-    							IconButton(onPressed: start, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue)),
-    							IconButton(onPressed: pause, iconSize: 50, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue)),
-                  IconButton(onPressed: stop, iconSize: 50, icon: const Icon(Icons.stop_circle_rounded, color: Colors.blue)),
-                ]
+  							children: _getButtons(),
   						),)
   					],
 				),
 			),
 		);
 	}
+
+  List<Widget> _getButtons() {
+    Widget startBt = IconButton(onPressed: start, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue));
+    Widget pauseBt = IconButton(onPressed: pause, iconSize: 50, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue));
+    Widget stopBt = IconButton(onPressed: stop, iconSize: 50, icon: const Icon(Icons.stop_circle_rounded, color: Colors.blue));
+
+    if (!_timer.isOn && _isFirstLoad) {
+      return [ startBt ];
+    } else if (!_timer.isOn) {
+      return [ startBt, stopBt ];
+    }
+    return [ pauseBt ];
+  }
 
 }
 
