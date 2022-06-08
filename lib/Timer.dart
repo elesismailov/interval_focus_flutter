@@ -74,7 +74,16 @@ class _TimerWidgetState extends State<TimerWidget> {
 
       }
     }
+  }
 
+  void stop() {
+    if ( !_timer.isOn ) {
+      resetTimer();
+      setState(() {
+        _timer.sessionNumber = 0;
+        _timer.userTime = 0;
+        });
+    }
   }
 
   void resetTimer() {
@@ -82,7 +91,6 @@ class _TimerWidgetState extends State<TimerWidget> {
       _timer.leftTimeWhenPaused = 0;
       _timer.startTime = 0;
       _timer.endTime = 0; 
-
   }
 
 	@override
@@ -114,8 +122,10 @@ class _TimerWidgetState extends State<TimerWidget> {
   						child: Wrap(
   							spacing: 0,
   							children: [
-  							IconButton(onPressed: start, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue)),
-  							IconButton(onPressed: pause, iconSize: 50, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue)),]
+    							IconButton(onPressed: start, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue)),
+    							IconButton(onPressed: pause, iconSize: 50, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue)),
+                  IconButton(onPressed: stop, iconSize: 50, icon: const Icon(Icons.stop_circle_rounded, color: Colors.blue)),
+                ]
   						),)
   					],
 				),
@@ -135,8 +145,8 @@ class InitialTimerState {
   int endTime = 0;
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
-  List<int> interval = [2400000, 600000, 2400000, 600000];
-  // List<int> interval = [9000, 6000, 9000, 6000];
+  // List<int> interval = [2400000, 600000, 2400000, 600000];
+  List<int> interval = [9000, 6000, 9000, 6000];
   // List<int> interval = [];
 
   void nextSession() { 
