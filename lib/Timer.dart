@@ -165,8 +165,8 @@ class InitialTimerState {
   int endTime = 0;
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
-  // List<int> interval = [2400000, 600000, 2400000, 600000];
-  List<int> interval = [9000, 6000, 9000, 6000];
+  List<int> interval = [2400000, 600000, 2400000, 600000];
+  // List<int> interval = [9000, 6000, 9000, 6000];
   // List<int> interval = [];
 
   void nextSession() { 
