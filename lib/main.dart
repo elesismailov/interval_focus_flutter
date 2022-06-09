@@ -33,10 +33,51 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
+      appBar: AppBar(
+				backgroundColor: Colors.black,
+				elevation: 0,
+				actions: [
+					ElevatedButton(onPressed: () {
+						print(1);
+						Navigator.push(
+							context,
+							MaterialPageRoute(builder: (context) => const Route1())
+							);
+					}, child: Text('Stats')),
+					ElevatedButton(onPressed: () {
+						print(1);
+						Navigator.push(
+							context,
+							MaterialPageRoute(builder: (context) => const Route1())
+							);
+					}, child: Text('Settings')),
+				],
+      ),
       body: TimerWidget(),
+    );
+  }
+}
+
+class Route1 extends StatelessWidget {
+  const Route1({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+		backgroundColor: Colors.black,
+      appBar: AppBar(
+				centerTitle: true,
+        title: const Text('Settings'),
+				backgroundColor: Colors.black,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Open route'),
+          onPressed: () {
+						Navigator.pop(context);
+          },
+        ),
+      ),
     );
   }
 }
