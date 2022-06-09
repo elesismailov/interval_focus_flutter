@@ -105,15 +105,41 @@ class Notifications {
 	}
 
 	Future<void> showNotification(String? title, String? body, payload) async {
-	const AndroidNotificationDetails androidPlatformChannelSpecifics =
+		const AndroidNotificationDetails androidPlatformChannelSpecifics =
 	    AndroidNotificationDetails('your channel id', 'your channel name',
 	        channelDescription: 'your channel description',
 	        importance: Importance.max,
 	        priority: Priority.high,
 	        ticker: 'ticker');
-	const NotificationDetails platformChannelSpecifics =
+		const NotificationDetails platformChannelSpecifics =
 	    NotificationDetails(android: androidPlatformChannelSpecifics);
-	flutterLocalNotificationsPlugin.show(
+		flutterLocalNotificationsPlugin.show(
+	    _lastNotificationId++,
+	    title,
+	    body,
+	    platformChannelSpecifics,
+	    payload: payload,
+	    );
+	}
+
+	Future<void> showNotificationWithSound(String? title, String? body, payload) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'your other channel id',
+      'your other channel name',
+      channelDescription: 'your other channel description',
+      sound: RawResourceAndroidNotificationSound('bell_notification'),
+    );
+
+    final LinuxNotificationDetails linuxPlatformChannelSpecifics =
+        LinuxNotificationDetails(
+      sound: AssetsLinuxSound('sound/bell_notification.wav'),
+    );
+    final NotificationDetails platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      linux: linuxPlatformChannelSpecifics,
+    );
+		flutterLocalNotificationsPlugin.show(
 	    _lastNotificationId++,
 	    title,
 	    body,

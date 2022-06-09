@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import './notifications.dart';
 
 class TimerWidget extends StatefulWidget {
-
 
 	@override
 	State<StatefulWidget> createState() {
@@ -64,7 +62,8 @@ class _TimerWidgetState extends State<TimerWidget> {
 
         resetTimer();
 
-        notificationsApi.showNotification(
+        // notificationsApi.showNotification(
+        notificationsApi.showNotificationWithSound(
           'Interval Focus',
           (_timer.mode == 0) ? 'It is time to take a break!' : 'Time to get to work!',
           null,
@@ -116,6 +115,14 @@ class _TimerWidgetState extends State<TimerWidget> {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
+						/* ElevatedButton(onPressed: () { */
+						/* 	// notificationsApi.showNotification( */
+						/* 	notificationsApi.showNotificationWithSound( */
+						/* 		'Interval Focus', */
+						/* 		(_timer.mode == 0) ? 'It is time to take a break!' : 'Time to get to work!', */
+						/* 		null, */
+						/* 		); */
+						/* }, child: Text('n')), */
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
