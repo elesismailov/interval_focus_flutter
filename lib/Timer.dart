@@ -45,7 +45,7 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
   }
 
-  void mainTimer() {
+  void mainTimer() async {
 
     if ( _timer.isOn ) {
       int now = DateTime.now().millisecondsSinceEpoch;

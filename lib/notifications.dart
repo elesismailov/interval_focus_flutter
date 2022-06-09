@@ -139,7 +139,7 @@ class Notifications {
       android: androidPlatformChannelSpecifics,
       linux: linuxPlatformChannelSpecifics,
     );
-		flutterLocalNotificationsPlugin.show(
+		await flutterLocalNotificationsPlugin.show(
 	    _lastNotificationId++,
 	    title,
 	    body,
