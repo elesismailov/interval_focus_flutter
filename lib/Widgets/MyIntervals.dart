@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../storage.dart';
 
 class MyIntervals extends StatefulWidget {
 
 	@override
-	State<StatefulWidget> createState() {
-		return _MyIntervalsState();
-	}
+	State<StatefulWidget> createState() => _MyIntervalsState();
 
 }
 
@@ -17,10 +16,10 @@ class _MyIntervalsState extends State<MyIntervals> {
   Widget build(BuildContext context) {
 
 		List intervals = getIntervals();
-		List<Widget> widgetIntervals = [];
+		List<Widget> widgetIntervals = intervals.map((e) => IntervalWidget(data: e)).toList();
 
     return Scaffold(
-		backgroundColor: Colors.black,
+		backgroundColor: Color.fromRGBO(123, 13, 121, 100),
       appBar: AppBar(
 				centerTitle: true,
         title: const Text('My Intervals'),
@@ -35,18 +34,23 @@ class _MyIntervalsState extends State<MyIntervals> {
   }
 }
 
-class Interval extends StatefulWidget {
+class IntervalWidget extends StatefulWidget {
+
+	const IntervalWidget({Key? key, required this.data}) : super(key: key);
+
+	final IntervalInterface data;
 
 	@override
-	State<StatefulWidget> createState() => _IntervalState();
+	State<StatefulWidget> createState() => _IntervalWidgetState();
 }
 
-class _IntervalState extends State<Interval> {
+class _IntervalWidgetState extends State<IntervalWidget> {
 
 	@override
 	Widget build(BuildContext context) {
+		IntervalInterface data = widget.data;
 		return Container(
-
+			child:  Text(data.title, style: TextStyle(color: Colors.white)),
 		);
 	}
 }
