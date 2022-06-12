@@ -25,11 +25,10 @@ class _MyIntervalsState extends State<MyIntervals> {
         title: const Text('My Intervals'),
 				backgroundColor: Colors.black,
       ),
-      body: Center(
-				child: Column(
+      body: 
+				ListView(
 					children: widgetIntervals,
         ),
-			),
     );
   }
 }
@@ -46,7 +45,7 @@ class IntervalWidget extends StatefulWidget {
 
 class _IntervalWidgetState extends State<IntervalWidget> {
 
-	// TODO ispressed state to dropdown menu
+	// TODO reconsider menu dropping/toggling implementation
 	bool _isToggled = false;
 
 
@@ -54,7 +53,8 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
 		List<Widget> sessions = data.interval.map((e) => sessionWidget(e)).toList();
-		return GestureDetector(
+		return Align(
+		child: GestureDetector(
 			onTap: () {
 				setState(() {
 					_isToggled = !_isToggled;
@@ -69,7 +69,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 					 color: const Color.fromRGBO(91, 91, 91, 100),
 
 				),
-				margin: const EdgeInsets.only(top: 20),
+				margin: const EdgeInsets.only(top: 20, left: 25, right: 25),
 				//child:  Text(data.title, style: const TextStyle(color: Colors.white)),
 				child: Column(
 					children: [
@@ -85,7 +85,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 					],
 				),
 			)
-		);
+		));
 	}
 
 	Widget getToggleButtons() {
