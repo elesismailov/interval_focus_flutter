@@ -47,36 +47,65 @@ class IntervalWidget extends StatefulWidget {
 class _IntervalWidgetState extends State<IntervalWidget> {
 
 	// TODO ispressed state to dropdown menu
+	bool _isToggled = false;
+
 
 	@override
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
 		List<Widget> sessions = data.interval.map((e) => sessionWidget(e)).toList();
-		return Container(
-			width: double.infinity,
-			constraints: const BoxConstraints(maxWidth: 385),
-			padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-			decoration: BoxDecoration(
-				 borderRadius: BorderRadius.circular(15),
-				 color: const Color.fromRGBO(91, 91, 91, 100),
+		return GestureDetector(
+			onTap: () {
+				setState(() {
+					_isToggled = !_isToggled;
+				});
+			},
+			child: Container(
+				width: double.infinity,
+				constraints: const BoxConstraints(maxWidth: 385),
+				padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+				decoration: BoxDecoration(
+					 borderRadius: BorderRadius.circular(15),
+					 color: const Color.fromRGBO(91, 91, 91, 100),
 
-			),
-			margin: const EdgeInsets.only(top: 20),
-			//child:  Text(data.title, style: const TextStyle(color: Colors.white)),
-			child: Column(
-				children: [
-					Container(
-						width: double.infinity,
-						margin: const EdgeInsets.only(bottom: 15),
-						child: Text(data.title, style: const TextStyle(color: Colors.white)),
-					),
-					
-					Row(
-						children: sessions,
-					),
-				],
-			),
+				),
+				margin: const EdgeInsets.only(top: 20),
+				//child:  Text(data.title, style: const TextStyle(color: Colors.white)),
+				child: Column(
+					children: [
+						Container(
+							width: double.infinity,
+							margin: const EdgeInsets.only(bottom: 15),
+							child: Text(data.title, style: const TextStyle(color: Colors.white)),
+						),
+						Row(
+							children: sessions,
+						),
+						getToggleButtons(),
+					],
+				),
+			)
 		);
+	}
+
+	Widget getToggleButtons() {
+		if (_isToggled) {
+			return Container(
+						margin: const EdgeInsets.only(top: 15,),
+						child: Wrap(
+							spacing: 0,
+							children: [
+					IconButton(onPressed: () {
+						// TODO editing of the current interval
+					}, iconSize: 50, icon: const Icon(Icons.edit_rounded, color: Colors.blue)),
+					IconButton(onPressed: () {
+						// TODO reseting of the current interval
+					}, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue)),
+							],
+						),
+					);
+		}
+		return const SizedBox();
 	}
 
 	Widget sessionWidget(SessionInterface s) {

@@ -10,6 +10,36 @@ List getIntervals() {
 			SessionInterface(10000, [0, 144, 244, 1]),
 			SessionInterface(5000, [0, 244, 56, 1]),
 			], []),
+		IntervalInterface('First', [
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			], []),
+		IntervalInterface('First', [
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			], []),
+		IntervalInterface('First', [
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			], []),
+		IntervalInterface('First', [
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			], []),
+		IntervalInterface('First', [
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			SessionInterface(10000, [0, 144, 244, 1]),
+			SessionInterface(5000, [0, 244, 56, 1]),
+			], []),
 	];
 
 }
