@@ -46,6 +46,8 @@ class IntervalWidget extends StatefulWidget {
 
 class _IntervalWidgetState extends State<IntervalWidget> {
 
+	// TODO ispressed state to dropdown menu
+
 	@override
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
@@ -56,7 +58,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 			padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
 			decoration: BoxDecoration(
 				 borderRadius: BorderRadius.circular(15),
-				 color: const Color.fromRGBO(51, 51, 51, 100),
+				 color: const Color.fromRGBO(91, 91, 91, 100),
 
 			),
 			margin: const EdgeInsets.only(top: 20),
@@ -77,18 +79,20 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 		);
 	}
 
-	Widget sessionWidget(ses) {
-		//Color col = 
+	Widget sessionWidget(SessionInterface s) {
+		List c = s.color;
+		String len = (s.len%60).toString();
+		// TODO change text color black/white depending on the s.color
 		return Container(
 			width: 35,
 			height: 35,
 			decoration: BoxDecoration(
-				color: Colors.white,
+				color: Color.fromRGBO(c[0], c[1], c[2], c[3].toDouble()),
 				borderRadius: BorderRadius.circular(100),
 			),
 			padding: const EdgeInsets.all(7),
 			margin: const EdgeInsets.only(right: 10),
-			child: Center( child: Text('$ses.len') ),
+			child: Center( child: Text(len, style: const TextStyle(color: Colors.white)) ),
 			);
 	}
 }
