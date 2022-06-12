@@ -26,10 +26,10 @@ class _MyIntervalsState extends State<MyIntervals> {
 				backgroundColor: Colors.black,
       ),
       body: Center(
-        child: Column(
+				child: Column(
 					children: widgetIntervals,
         ),
-      ),
+			),
     );
   }
 }
@@ -49,8 +49,37 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 	@override
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
+		List<Widget> sessions = data.interval.map((e) => sessionWidget(e)).toList();
 		return Container(
-			child:  Text(data.title, style: const TextStyle(color: Colors.white)),
+			width: double.infinity,
+			constraints: const BoxConstraints(maxWidth: 385),
+			padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+			decoration: BoxDecoration(
+				 borderRadius: BorderRadius.circular(15),
+				 color: const Color.fromRGBO(51, 51, 51, 100),
+
+			),
+			margin: const EdgeInsets.only(top: 20),
+			//child:  Text(data.title, style: const TextStyle(color: Colors.white)),
+			child: Column(
+				children: [
+					Container(
+						width: double.infinity,
+						margin: const EdgeInsets.only(bottom: 15),
+						child: Text(data.title, style: const TextStyle(color: Colors.white)),
+					),
+					
+					Row(
+						children: sessions,
+					),
+				],
+			),
 		);
+	}
+
+	Widget sessionWidget(len) {
+		return Container(
+			child: Text('$len'),
+			);
 	}
 }
