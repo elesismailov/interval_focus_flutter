@@ -19,7 +19,7 @@ class _MyIntervalsState extends State<MyIntervals> {
 		List<Widget> widgetIntervals = intervals.map((e) => IntervalWidget(data: e)).toList();
 
     return Scaffold(
-		backgroundColor: Color.fromRGBO(123, 13, 121, 100),
+		backgroundColor: Colors.black,
       appBar: AppBar(
 				centerTitle: true,
         title: const Text('My Intervals'),
@@ -50,7 +50,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
 		return Container(
-			child:  Text(data.title, style: TextStyle(color: Colors.white)),
+			child:  Text(data.title, style: const TextStyle(color: Colors.white)),
 		);
 	}
 }
