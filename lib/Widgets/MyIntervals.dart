@@ -77,9 +77,18 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 		);
 	}
 
-	Widget sessionWidget(len) {
+	Widget sessionWidget(ses) {
+		//Color col = 
 		return Container(
-			child: Text('$len'),
+			width: 35,
+			height: 35,
+			decoration: BoxDecoration(
+				color: Colors.white,
+				borderRadius: BorderRadius.circular(100),
+			),
+			padding: const EdgeInsets.all(7),
+			margin: const EdgeInsets.only(right: 10),
+			child: Center( child: Text('$ses.len') ),
 			);
 	}
 }
