@@ -100,16 +100,16 @@ class _TimerWidgetState extends State<TimerWidget> {
 	@override
 	Widget build(BuildContext context) {
     // TODO extract userTime to _getTextTime()
-		String _min = ('0' + ((
+		String _min = ('0${((
       (_timer.userTime == 0) 
         ? _timer.interval.sessions[_timer.sessionNumber].len 
         : _timer.userTime
-      )/1000~/60).toString());
-		String _sec = ('0' + ((
+      )/1000~/60)}');
+		String _sec = ('0${((
       (_timer.userTime == 0) 
         ? _timer.interval.sessions[_timer.sessionNumber].len 
         : _timer.userTime
-      )~/1000%60).toString());
+      )~/1000%60)}');
 		return Scaffold(
 			backgroundColor: Colors.black,
 			body: Center(
@@ -128,7 +128,8 @@ class _TimerWidgetState extends State<TimerWidget> {
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
   						child: Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: const TextStyle(color: Colors.white, fontSize: 50.0))),
-  					Text('Session Number: ' + _timer.sessionNumber.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+  					/* Text('Session Number: ' + _timer.sessionNumber.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)), */
+						sessionIndicator(),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 5),
   						child: Wrap(
@@ -155,11 +156,26 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 
 	Widget sessionIndicator() {
-
-		List<Widget> result = _timer.interval.sessions.map((e) {
-		  return Container();
+		IntervalInterface i = _timer.interval;
+		List s = i.sessions;
+		List<Widget> result = s.map((e) {
+			List c = e.color;
+			double w = 10;
+			double h = 10;
+			if (s.indexOf(e) == _timer.sessionNumber) {
+				w = 15; h = 15;
+			}
+		  return Container(
+				width: w, height: h,
+				margin: const EdgeInsets.symmetric(horizontal: 2),
+				decoration: BoxDecoration(
+					color: Color.fromRGBO(c[0], c[1], c[2], c[3].toDouble()),
+					borderRadius: BorderRadius.circular(100),
+				)
+			);
 		}).toList();
 		return Row(
+			mainAxisAlignment: MainAxisAlignment.center,
 			children: result,	
 		);
 	}
