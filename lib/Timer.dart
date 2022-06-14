@@ -85,6 +85,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       setState(() {
         _timer.sessionNumber = 0;
         _timer.userTime = 0;
+				_timer.mode = 0;
         _isFirstLoad = true;
         });
     }
