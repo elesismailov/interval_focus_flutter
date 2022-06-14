@@ -3,54 +3,16 @@
 List getIntervals() {
 
 	// this is a MOCK data
-	return [
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-		IntervalInterface('First', [
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			SessionInterface(10000, [0, 144, 244, 1]),
-			SessionInterface(5000, [0, 244, 56, 1]),
-			], []),
-	];
-
+	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), ];
 }
 
 class IntervalInterface {
 
 	String title = '';
-	List<SessionInterface> interval = [];
+	List<SessionInterface> sessions = [];
 	List<String> tags = [];
 
-	IntervalInterface(this.title, this.interval, this.tags);
+	IntervalInterface(this.title, this.sessions, this.tags);
 
 }
 

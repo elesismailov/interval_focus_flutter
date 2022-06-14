@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:interval_focus/storage.dart';
 
 import './notifications.dart';
 
@@ -21,7 +22,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
     if ( !_timer.isOn ) {
       int startTime = DateTime.now().millisecondsSinceEpoch;
-      int sessionLength = _timer.interval[_timer.sessionNumber];
+      int sessionLength = _timer.interval.sessions[_timer.sessionNumber].len;
       int endTime = startTime + ((_timer.leftTimeWhenPaused != 0) ? _timer.leftTimeWhenPaused : sessionLength);
 
       _timer.startTime = startTime;
@@ -101,12 +102,12 @@ class _TimerWidgetState extends State<TimerWidget> {
     // TODO extract userTime to _getTextTime()
 		String _min = ('0' + ((
       (_timer.userTime == 0) 
-        ? _timer.interval[_timer.sessionNumber] 
+        ? _timer.interval.sessions[_timer.sessionNumber].len 
         : _timer.userTime
       )/1000~/60).toString());
 		String _sec = ('0' + ((
       (_timer.userTime == 0) 
-        ? _timer.interval[_timer.sessionNumber] 
+        ? _timer.interval.sessions[_timer.sessionNumber].len 
         : _timer.userTime
       )~/1000%60).toString());
 		return Scaffold(
@@ -123,13 +124,13 @@ class _TimerWidgetState extends State<TimerWidget> {
 						/* 		null, */
 						/* 		); */
 						/* }, child: Text('n')), */
-  					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+  					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 18.0)),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
-  						child: Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: const TextStyle(color: Colors.white, fontSize: 26.0))),
+  						child: Text('${_min.substring(_min.length-2)}:${_sec.substring(_sec.length-2)}', style: const TextStyle(color: Colors.white, fontSize: 50.0))),
   					Text('Session Number: ' + _timer.sessionNumber.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
   					Container(
-  						margin: const EdgeInsets.symmetric(vertical: 0),
+  						margin: const EdgeInsets.symmetric(vertical: 5),
   						child: Wrap(
   							spacing: 0,
   							children: _getButtons(),
@@ -141,9 +142,9 @@ class _TimerWidgetState extends State<TimerWidget> {
 	}
 
   List<Widget> _getButtons() {
-    Widget startBt = IconButton(onPressed: start, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue));
-    Widget pauseBt = IconButton(onPressed: pause, iconSize: 50, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue));
-    Widget stopBt = IconButton(onPressed: stop, iconSize: 50, icon: const Icon(Icons.stop_circle_rounded, color: Colors.blue));
+    Widget startBt = IconButton(onPressed: start, iconSize: 60, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue));
+    Widget pauseBt = IconButton(onPressed: pause, iconSize: 60, icon: const Icon(Icons.pause_circle_rounded, color: Colors.blue));
+    Widget stopBt = IconButton(onPressed: stop, iconSize: 60, icon: const Icon(Icons.stop_circle_rounded, color: Colors.blue));
 
     if (!_timer.isOn && _isFirstLoad) {
       return [ startBt ];
@@ -152,6 +153,16 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
     return [ pauseBt ];
   }
+
+	Widget sessionIndicator() {
+
+		List<Widget> result = _timer.interval.sessions.map((e) {
+		  return Container();
+		}).toList();
+		return Row(
+			children: result,	
+		);
+	}
 
 }
 
@@ -165,12 +176,12 @@ class InitialTimerState {
   int endTime = 0;
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
-  List<int> interval = [2400000, 600000, 2400000, 600000];
-  // List<int> interval = [9000, 6000, 9000, 6000];
-  // List<int> interval = [];
+
+	// TODO this hard coded
+  IntervalInterface interval = IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []); 
 
   void nextSession() { 
-    if ( interval.length-1 == sessionNumber ) {
+    if ( interval.sessions.length-1 == sessionNumber ) {
       sessionNumber = 0;
     } else {
       sessionNumber++;

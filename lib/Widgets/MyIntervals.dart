@@ -52,7 +52,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 	@override
 	Widget build(BuildContext context) {
 		IntervalInterface data = widget.data;
-		List<Widget> sessions = data.interval.map((e) => sessionWidget(e)).toList();
+		List<Widget> sessions = data.sessions.map((e) => sessionWidget(e)).toList();
 		return Align(
 		child: GestureDetector(
 			onTap: () {
