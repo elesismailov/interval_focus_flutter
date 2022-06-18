@@ -125,6 +125,11 @@ class _TimerWidgetState extends State<TimerWidget> {
 						/* 		null, */
 						/* 		); */
 						/* }, child: Text('n')), */
+
+						/* ElevatedButton(onPressed: () { */
+	/* writeCounter(DateTime.now().toString()); */
+						/* }, child: Text('n')), */
+
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 18.0)),
   					Container(
   						margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -195,8 +200,8 @@ class InitialTimerState {
   int sessionNumber = 0;
 
 	// TODO this hard coded
-  IntervalInterface interval = IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []); 
-	// IntervalInterface interval = getCurrentInterval();
+  /* IntervalInterface interval = IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []); */ 
+	IntervalInterface interval = getCurrentInterval();
 
   void nextSession() { 
     if ( interval.sessions.length-1 == sessionNumber ) {
