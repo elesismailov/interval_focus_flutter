@@ -13,8 +13,14 @@ Future<String> get _localPath async {
 	return directory.path;
 }
 
-Future<String> get _savedSessionsPath async {
+Future<File> get _userDataFile async {
+	final path = await _localPath;
+	return File('$path/user_data.json');
+}
 
+Future<File> get _userSettingsFile async {
+	final path = await _localPath;
+	return File('$path/user_settings.json');
 }
 
 Future<File> get _localFile async {
