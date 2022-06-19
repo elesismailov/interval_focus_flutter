@@ -28,13 +28,20 @@ Future<File> get _localFile async {
 	return File('$path/counter.txt');
 }
 
+int currentIntervalId = 0;
+List intervals = [
+	IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []),
+	IntervalInterface('First', [ SessionInterface(20000, [0, 144, 244, 1]), SessionInterface(9000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [])
+		];
+
+void setCurrentInterval(id) {
+	print('this sets the current interval with $id');
+	currentIntervalId = id;
+}
+
 IntervalInterface getCurrentInterval() {
-
-	print('hello storage');
-	print(_localPath);
-
-
-	return IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []); 
+	print('get called');
+	return intervals[currentIntervalId]; 
 }
 
 Future<File> writeCounter(str) async {

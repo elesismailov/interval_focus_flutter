@@ -5,6 +5,7 @@ import 'package:interval_focus/storage.dart';
 import './notifications.dart';
 
 class TimerWidget extends StatefulWidget {
+	const TimerWidget({Key? key}) : super(key: key);
 
 	@override
 	State<StatefulWidget> createState() {
@@ -17,6 +18,24 @@ class _TimerWidgetState extends State<TimerWidget> {
 
 	final InitialTimerState _timer = InitialTimerState();
   bool _isFirstLoad = true;
+
+	@override
+	void initState() {
+		super.initState();
+		print('hello initialized');
+
+	
+		// watch interval changes
+		Timer.periodic(const Duration(milliseconds: 200), (timer) {
+			// if (currentIntervalId != _timer.interval.id) {
+			if (currentIntervalId != 0) {
+				/* print('the interval has changed'); */
+				/* _timer.reload(); */
+				/* stop(); */
+			}
+		});
+
+	}
 
   void start() {
 
@@ -47,7 +66,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 
   void mainTimer() async {
-
     if ( _timer.isOn ) {
       int now = DateTime.now().millisecondsSinceEpoch;
 
@@ -199,9 +217,15 @@ class InitialTimerState {
   int leftTimeWhenPaused = 0;
   int sessionNumber = 0;
 
-	// TODO this hard coded
-  /* IntervalInterface interval = IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []); */ 
 	IntervalInterface interval = getCurrentInterval();
+
+	/* InitialTimerState() { */
+	/* 	interval = getCurrentInterval(); */
+	/* } */
+
+	void reload() {
+		interval = getCurrentInterval();
+	}
 
   void nextSession() { 
     if ( interval.sessions.length-1 == sessionNumber ) {

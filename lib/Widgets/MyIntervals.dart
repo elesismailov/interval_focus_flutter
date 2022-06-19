@@ -100,6 +100,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 					}, iconSize: 50, icon: const Icon(Icons.edit_rounded, color: Colors.blue)),
 					IconButton(onPressed: () {
 						// TODO reseting of the current interval
+						setCurrentInterval(1);
 					}, iconSize: 50, icon: const Icon(Icons.play_circle_rounded, color: Colors.blue)),
 							],
 						),
