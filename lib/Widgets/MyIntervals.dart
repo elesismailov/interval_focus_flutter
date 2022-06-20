@@ -21,7 +21,7 @@ class _MyIntervalsState extends State<MyIntervals> {
 		print('initializing MyIntervals');
 		setState(() {
 			_isLoading = false;
-			_widgetIntervals = intervals.map((e) => IntervalWidget(data: e)).toList();
+			_widgetIntervals = (intervals.isNotEmpty) ? intervals.map((e) => IntervalWidget(data: e)).toList() : [];
 		});
 	}
 
@@ -42,9 +42,12 @@ class _MyIntervalsState extends State<MyIntervals> {
 				backgroundColor: Colors.black,
       ),
       body: 
-				(_isLoading) ? const Text('Loading...', style: TextStyle(color: Colors.white,)) : ListView(
-					children: _widgetIntervals,
-        ),
+				(_isLoading) ? const Text('Loading...', style: TextStyle(color: Colors.white,)) : 
+					(_widgetIntervals.isNotEmpty) ?
+						ListView(
+							children: _widgetIntervals,
+						)
+					: const Text('Nothing...', style: TextStyle(color: Colors.white,)),
     );
   }
 }
@@ -130,6 +133,7 @@ class _IntervalWidgetState extends State<IntervalWidget> {
 
 	Widget sessionWidget(SessionInterface s) {
 		List c = s.color;
+		// TODO change the length parsing
 		String len = (s.len%60).toString();
 		// TODO change text color black/white depending on the s.color
 		return Container(

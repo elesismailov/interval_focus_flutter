@@ -142,9 +142,9 @@ class _TimerWidgetState extends State<TimerWidget> {
 						/* 		); */
 						/* }, child: Text('n')), */
 
-						ElevatedButton(onPressed: () async {
-							print('${await readSettings()}');
-						}, child: Text('n')),
+						/* ElevatedButton(onPressed: () async { */
+						/* 	print('${await readSettings()}'); */
+						/* }, child: Text('n')), */
 
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 18.0)),
   					Container(

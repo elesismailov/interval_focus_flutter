@@ -50,46 +50,26 @@ Future<Map> readSettings() async {
 		// create file
 		final file = await _settingsFile;
 		// TODO create settings file initializer
-		file.writeAsString('{}');
+		/* file.writeAsString('{}'); */
 		Map<String, dynamic> settingsMap = jsonDecode('{}');
 		return settingsMap;
 	}
 }
+
 Future<List> getIntervals() async {
-	final settingsMap = await readSettings();
-	List intervals = settingsMap['intervals'];
+	try {
+		final settingsMap = await readSettings();
+		List intervals = settingsMap['intervals'];
 
-	// [[123456, A title, [[10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]]], [workout, reading, food]]]
-	print(intervals);
+		List parsed = intervals.map((e) => IntervalInterface.fromJSON(e)).toList();
 
-	List parsed = intervals.map((e) => IntervalInterface.fromJSON(e)).toList();
-
-	return parsed;
-}
-
-Future<File> writeCounter(str) async {
-  final file = await _localFile;
-
-  // Write the file
-  return file.writeAsString('$str');
-}
-
-Future<String> readCounter() async {
-  try {
-    final file = await _localFile;
-
-    // Read the file
-    final contents = await file.readAsString();
-
-		print(contents);
-
-    return contents;
-  } catch (e) {
-    // If encountering an error, return 0
+		return parsed;
+	} catch (e) {
 		print(e);
-    return '{}';
-  }
+		return [];
+	}
 }
+
 
 class IntervalInterface {
 
@@ -100,7 +80,6 @@ class IntervalInterface {
 	List<String> tags = [];
 
 	IntervalInterface(this.id, this.title, this.sessions, this.tags);
-
 
 	static IntervalInterface fromJSON(List d) {
 		try {
