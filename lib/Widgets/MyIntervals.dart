@@ -17,6 +17,7 @@ class _MyIntervalsState extends State<MyIntervals> {
 
 	void loadWidgets() async {
 		List intervals = await getIntervals();
+		print(intervals);
 		print('initializing MyIntervals');
 		setState(() {
 			_isLoading = false;

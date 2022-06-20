@@ -26,8 +26,8 @@ Future<File> get _localFile async {
 
 int currentIntervalId = 0;
 List intervals = [
-	IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 0),
-	IntervalInterface('First', [ SessionInterface(2400000, [0, 144, 24, 1]), SessionInterface(1200000, [0, 244, 56, 1]), SessionInterface(2400000, [0, 144, 244, 1]), SessionInterface(120000, [0, 24, 56, 1]), ], [], 1)
+	IntervalInterface(0, 'First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []),
+	IntervalInterface(1, 'First', [ SessionInterface(2400000, [0, 144, 24, 1]), SessionInterface(1200000, [0, 244, 56, 1]), SessionInterface(2400000, [0, 144, 244, 1]), SessionInterface(120000, [0, 24, 56, 1]), ], [])
 		];
 
 void setCurrentInterval(id) {
@@ -60,13 +60,11 @@ Future<List> getIntervals() async {
 	List intervals = settingsMap['intervals'];
 
 	// [[123456, A title, [[10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]]], [workout, reading, food]]]
+	print(intervals);
+
 	List parsed = intervals.map((e) => IntervalInterface.fromJSON(e)).toList();
 
-	print(parsed);
-
-	// this is a MOCK data
 	return parsed;
-	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1])], [], 0), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 1) ];
 }
 
 Future<File> writeCounter(str) async {
@@ -101,14 +99,31 @@ class IntervalInterface {
 	List<SessionInterface> sessions = [];
 	List<String> tags = [];
 
-	IntervalInterface(this.title, this.sessions, this.tags, this.id);
+	IntervalInterface(this.id, this.title, this.sessions, this.tags);
+
+
+	static IntervalInterface fromJSON(List d) {
+		try {
+			List sessions = d[2].map((e) => SessionInterface(e[0], List<num>.from(e[1]))).toList();
+			IntervalInterface interval = IntervalInterface(
+				d[0], // id
+				d[1], // title
+				List<SessionInterface>.from(sessions), // sessions
+				List<String>.from(d[3]) // tags
+			);
+			return interval;
+
+		} catch(e) {
+		print(e);
+			return IntervalInterface(2, 'Got an Error in IntervalInterface.fromJSON', [ SessionInterface(2400000, [0, 144, 24, 1]), SessionInterface(1200000, [0, 244, 56, 1]), SessionInterface(2400000, [0, 144, 244, 1]), SessionInterface(120000, [0, 24, 56, 1]), ], []);
+		}
+	}
 
 }
 
 class SessionInterface {
 	int len = 0;
 	List<num> color = [];
-
 	SessionInterface(this.len, this.color);
 }
 
