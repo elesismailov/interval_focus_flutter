@@ -3,11 +3,6 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
 
-List getIntervals() {
-
-	// this is a MOCK data
-	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1])], [], 0), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 1) ];
-}
 
 Future<String> get _localPath async {
 	final directory = await getApplicationDocumentsDirectory();
@@ -59,6 +54,19 @@ Future<Map> readSettings() async {
 		Map<String, dynamic> settingsMap = jsonDecode('{}');
 		return settingsMap;
 	}
+}
+Future<List> getIntervals() async {
+	final settingsMap = await readSettings();
+	List intervals = settingsMap['intervals'];
+
+	// [[123456, A title, [[10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]], [10000, [0, 0, 0, 0.0]]], [workout, reading, food]]]
+	List parsed = intervals.map((e) => IntervalInterface.fromJSON(e)).toList();
+
+	print(parsed);
+
+	// this is a MOCK data
+	return parsed;
+	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1])], [], 0), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 1) ];
 }
 
 Future<File> writeCounter(str) async {
