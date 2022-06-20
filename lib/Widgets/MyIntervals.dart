@@ -10,14 +10,29 @@ class MyIntervals extends StatefulWidget {
 }
 
 class _MyIntervalsState extends State<MyIntervals> {
+	
+	bool _isLoading = true;
+	bool _err = false;
+	List<Widget> _widgetIntervals = [];
 
+	void loadWidgets() async {
+		List intervals = await getIntervals();
+		print('initializing MyIntervals');
+		setState(() {
+			_isLoading = false;
+			_widgetIntervals = intervals.map((e) => IntervalWidget(data: e)).toList();
+		});
+	}
 
+	@override
+	void initState() {
+		super.initState();
+		loadWidgets();
+	}
+
+	// TODO create loading screen
   @override
   Widget build(BuildContext context) {
-
-		List intervals = getIntervals();
-		List<Widget> widgetIntervals = intervals.map((e) => IntervalWidget(data: e)).toList();
-
     return Scaffold(
 		backgroundColor: Colors.black,
       appBar: AppBar(
@@ -26,8 +41,8 @@ class _MyIntervalsState extends State<MyIntervals> {
 				backgroundColor: Colors.black,
       ),
       body: 
-				ListView(
-					children: widgetIntervals,
+				(_isLoading) ? const Text('Loading...', style: TextStyle(color: Colors.white,)) : ListView(
+					children: _widgetIntervals,
         ),
     );
   }
