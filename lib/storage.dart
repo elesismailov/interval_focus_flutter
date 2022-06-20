@@ -1,11 +1,12 @@
 
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'dart:convert';
 
 List getIntervals() {
 
 	// this is a MOCK data
-	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []), ];
+	return [ IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1])], [], 0), IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 1) ];
 }
 
 Future<String> get _localPath async {
@@ -13,12 +14,12 @@ Future<String> get _localPath async {
 	return directory.path;
 }
 
-Future<File> get _userDataFile async {
+Future<File> get _dataFile async {
 	final path = await _localPath;
 	return File('$path/user_data.json');
 }
 
-Future<File> get _userSettingsFile async {
+Future<File> get _settingsFile async {
 	final path = await _localPath;
 	return File('$path/user_settings.json');
 }
@@ -30,8 +31,8 @@ Future<File> get _localFile async {
 
 int currentIntervalId = 0;
 List intervals = [
-	IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], []),
-	IntervalInterface('First', [ SessionInterface(20000, [0, 144, 244, 1]), SessionInterface(9000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [])
+	IntervalInterface('First', [ SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), SessionInterface(10000, [0, 144, 244, 1]), SessionInterface(5000, [0, 244, 56, 1]), ], [], 0),
+	IntervalInterface('First', [ SessionInterface(2400000, [0, 144, 24, 1]), SessionInterface(1200000, [0, 244, 56, 1]), SessionInterface(2400000, [0, 144, 244, 1]), SessionInterface(120000, [0, 24, 56, 1]), ], [], 1)
 		];
 
 void setCurrentInterval(id) {
@@ -42,6 +43,22 @@ void setCurrentInterval(id) {
 IntervalInterface getCurrentInterval() {
 	print('get called');
 	return intervals[currentIntervalId]; 
+}
+
+Future<Map> readSettings() async {
+	try {
+		final file = await _settingsFile;
+		final jsonString = await file.readAsString();
+		Map<String, dynamic> settingsMap = jsonDecode(jsonString);
+		return settingsMap;
+	} catch (e) {
+		// create file
+		final file = await _settingsFile;
+		// TODO create settings file initializer
+		file.writeAsString('{}');
+		Map<String, dynamic> settingsMap = jsonDecode('{}');
+		return settingsMap;
+	}
 }
 
 Future<File> writeCounter(str) async {
@@ -76,7 +93,7 @@ class IntervalInterface {
 	List<SessionInterface> sessions = [];
 	List<String> tags = [];
 
-	IntervalInterface(this.title, this.sessions, this.tags);
+	IntervalInterface(this.title, this.sessions, this.tags, this.id);
 
 }
 

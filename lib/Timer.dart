@@ -22,16 +22,14 @@ class _TimerWidgetState extends State<TimerWidget> {
 	@override
 	void initState() {
 		super.initState();
-		print('hello initialized');
-
 	
 		// watch interval changes
 		Timer.periodic(const Duration(milliseconds: 200), (timer) {
-			// if (currentIntervalId != _timer.interval.id) {
-			if (currentIntervalId != 0) {
-				/* print('the interval has changed'); */
-				/* _timer.reload(); */
-				/* stop(); */
+			if (currentIntervalId != _timer.interval.id) {
+				print('the interval has changed');
+				_timer.reload();
+				// TODO confirmation dialogue when the timer is running
+				stop();
 			}
 		});
 
@@ -144,9 +142,9 @@ class _TimerWidgetState extends State<TimerWidget> {
 						/* 		); */
 						/* }, child: Text('n')), */
 
-						/* ElevatedButton(onPressed: () { */
-	/* writeCounter(DateTime.now().toString()); */
-						/* }, child: Text('n')), */
+						ElevatedButton(onPressed: () async {
+							print('${await readSettings()}');
+						}, child: Text('n')),
 
   					Text((_timer.mode == 0) ? 'Focus' : 'Break', style: const TextStyle(color: Colors.grey, fontSize: 18.0)),
   					Container(
